@@ -22,7 +22,7 @@ This is my first repo and I'm selfthougt in Linux, so please bear with me.
 1. Prep your NAS.
 - Install Docker from the Package Center
 - Enable SSH (Control Panel -> Terminal & SNMP -> Enable SSH Service.
-- Download a suitable SSH-client, Putty for example
+- Download a suitable SSH-client to your PC, Putty for example
 - Connect to your NAS (NASIP:22)
 - login as admin and after login as root with commando `sudo -i` (enter your admin password again)
 - I like keeping my docker-folder in root so change folder to root `cd /.` and create a directory for your docker-apps. `mkdir docker`
