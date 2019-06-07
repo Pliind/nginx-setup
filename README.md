@@ -68,6 +68,8 @@ networks:
 - Read all notes per setting and adjust to your own needs.
 - When you're done, issue the command `docker-compose up -d` to create the container. you will also get feedback if something went wrong in creating the contianer the terminal.
 - Hopefully everything went well, you can also check the log in docker for any errors, the log will also feedback the success of creating cerfificates for your subdomains.
+
+>Everytime you change something in your docker-compose, you need to issue the docker-compose command.
 ```
 server {
         listen 80 default_server;
