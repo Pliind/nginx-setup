@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  letsencrypt:
+    container_name: letsencrypt
+    image: linuxserver/letsencrypt
+    restart: unless-stopped
+    networks:
+      nginx_network:
+        ipv4_address: 192.168.1.33  #choose any IP of your choice
+    ports:
+     - 80:80 #open this port in your router and set it to the ip above
+     - 443:443 #open this port in your router and 
+    environment:
+      - EMAIL=your@email.com #optional, fill in if you want cert-notifications
+      - TZ=Europe/Stockholm #set your timezone
+      - URL=example.com #your url domain.com domain.duckdns.org etc.. 
+      - SUBDOMAINS=,www,hass,unifi #add any subdomains you are going to be using
+      - VALIDATION=http #make sure port 80 is open and clear 
+    volumes:
+     - /docker/letsencrypt/config:/config #you will have to create this dir or you will get an error
+    cap_add:
+     - NET_ADMIN
+
+
+networks:
+  nginx_network:
+    driver: macvlan
+    driver_opts:
+      parent: eth0
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24            # <-- Update to the same subnet your current network has.
