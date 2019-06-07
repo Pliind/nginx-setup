@@ -108,6 +108,12 @@ server {
                 include /etc/nginx/fastcgi_params;
         }
 }
+# enable subdomain method reverse proxy confs
+include /config/nginx/proxy-confs/*.domain.conf; ### Important! change domain to your own domain. 
+# enable proxy cache for auth
+proxy_cache_path cache/ keys_zone=auth_cache:10m;
+
+
 ```
 3. Setting up Nginx
 Now your server is up and running and all we need to do is tell nginx the where what and how.
@@ -116,8 +122,10 @@ Now your server is up and running and all we need to do is tell nginx the where 
 - edit parameters that are marked up in the file.
 - navigate to /docker/letsencrypt/config/nginx/proxy-confs
 This folder is filled with examples to use, all you need to do is rename them and set them up to your  
-
-This unifi sample for example:
+- `ls` to list what's in the directory. 
+- rename unifi for example.
+- `mv unifi.subdomain.conf.sample unifi.domain.conf` #make sure to set domain to your domain
+- edit the file: `sudo nano unifi.domain.conf`
 ```
 # make sure that your dns has a cname set for unifi and that your unifi-controller container is not using a ba$
 
@@ -125,7 +133,7 @@ server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name unifi.domain.com;
+    server_name unifi.domain.com; #change to your domain
 
     include /config/nginx/ssl.conf;
 
