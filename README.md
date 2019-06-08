@@ -62,6 +62,7 @@ networks:
       config:
         - subnet: 192.168.1.0/24            # <-- Update to the same subnet your current network has.
 ```
+> We create a new network and IP in the code above so we do not overlap any standard ports in the synology NAS or any other service that might need it. Placing your Letsencrypt container on its own IP makes it more flexible and enables you to have other services such as pihole on the same server. 
 2. Create your container
 - Next we want to give docker the commands for what download and what settings to apply to the docker-app.
 - `cd /docker` and create a file called docker-compose.yaml. `sudo nano docker-compose.yaml` paste the content from the file from this repo into it.
