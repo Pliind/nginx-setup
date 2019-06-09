@@ -17,7 +17,7 @@ Why Nginx?
 Nginx will place itself as an old-time telephone operator between the internet and your own network, simply speaking.
 A request from hass.domain.com will make the operator (nginx) have a look inside its catalogue and find what internal IP it should direct you to, meanwhile keeping the connection encrypted.
 
-This is my first repo and I'm selfthougt in Linux, so please bear with me.
+This is my first repo and I'm self taught in Linux, so please bear with me.
 
 1. Prep your NAS.
 - Install Docker from the Package Center
@@ -180,9 +180,9 @@ server {
 }
 ```
 
-Restart Letsencryt from docker-container menu
+Restart Letsencryt from docker-container menu located in your NAS
 and you should now be set.
 
-Test your setup by opening a incognitio window.
+Test your setup by opening a incognito window.
 
 >Disclaimer: this guide was made for me to empty my head, because i will have forgotten half this in a week. This setup is running well for me right now, only WIP is how to set default site when going to www.domain.com
