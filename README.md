@@ -71,9 +71,9 @@ environment:
       - EMAIL=your@email.com        #optional, fill in if you want cert-notifications
       - TZ=Europe/Stockholm         #set your timezone
       - URL=example.com             #domain.duckdns.org  
-      - SUBDOMAINS=wildcard  #add any subdomains you are going to be using
+      - SUBDOMAINS=wildcard  
       - VALIDATION=duckdns             
-      - DUCKDNSTOKEN=XXXXXXX #Insert your duckdnstoken here.
+      - DUCKDNSTOKEN=XXXXXXX        #Insert your duckdnstoken here.
       
 ```
 ## 2. Create your container
