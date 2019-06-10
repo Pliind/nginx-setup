@@ -3,7 +3,7 @@ This guide is made with a Synology in mind, but will of course work on other sys
 
 If you are looking for encryption of Home assistant, Unifi Cloud Key or any other service you've come to the right place.
 
-## Prerequistions:
+## Prerequisitions:
 - Port 80 and 443 open and pointed to the IP Nginx will have.
 - Access to your admin-account on Synology
 - A Synology NAS with an Intel-based CPU, (required for Docker)
@@ -67,10 +67,10 @@ networks:
 - Next we want to give docker the commands for what download and what settings to apply to the docker-app.
 - `cd /docker` and create a file called docker-compose.yaml. `sudo nano docker-compose.yaml` paste the content from the file from this repo into it.
 - Read all notes per setting and adjust to your own needs.
-- When you're done, issue the command `docker-compose up -d` to create the container. you will also get feedback if something went wrong in creating the contianer the terminal.
-- Hopefully everything went well, you can also check the log in docker for any errors, the log will also feedback the success of creating cerfificates for your subdomains.
+- When you're done, issue the command `docker-compose up -d` to create the container. you will also get feedback if something went wrong in creating the container in the terminal.
+- Hopefully everything went well, you can also check the log in docker for any errors, the log will also feedback the success of creating cerfificates for your subdomains. `docker logs letsencrypt`
 
->Everytime you change something in your docker-compose, you need to issue the docker-compose command.
+>Everytime you change something in your docker-compose, you need to issue the docker-compose command. `sudo docker-compose up -d`
 ```
 server {
         listen 80 default_server;
