@@ -4,7 +4,7 @@ This guide is made with a Synology in mind, but will of course work on other sys
 If you are looking for encryption of Home assistant, Unifi Cloud Key or any other service you've come to the right place.
 
 ## Prerequisitions:
-- Port 80 and 443 open and pointed to the IP Nginx will have.
+- Port 80 and 443 open and pointed to the IP Nginx will be using (this is set in the docker-compose file).
 - Access to your admin-account on Synology
 - A Synology NAS with an Intel-based CPU, (required for Docker)
 - A domain you want to use*
@@ -17,7 +17,7 @@ Why Nginx?
 Nginx will place itself as an old-time telephone operator between the internet and your own network, simply speaking.
 A request from hass.domain.com will make the operator (nginx) have a look inside its catalogue and find what internal IP it should direct you to, meanwhile keeping the connection encrypted.
 
-This is my first repo and I'm self taught in Linux, so please bear with me.
+>This is my first repo and I'm self taught in Linux, so please bear with me if some of my methods are the "slow way" 
 
 ## 1. Prep your NAS.
 - Install Docker from the Package Center
@@ -25,7 +25,8 @@ This is my first repo and I'm self taught in Linux, so please bear with me.
 - Download a suitable SSH-client to your PC, Putty for example
 - Connect to your NAS (NASIP:22)
 - login as admin and after login as root with commando `sudo -i` (enter your admin password again)
-- I like keeping my docker-folder in root so change folder to root `cd /.` and create a directory for your docker-apps. `mkdir docker`
+- I like keeping my docker-folder in root so change folder to root `cd /.` and create a directory for your docker-containers
+. `mkdir docker`
 - We also need to make folder for nginx, `cd docker`, `mkdir letsencrypt`, `cd letsencrypt`, `mkdir config`
 
 ```version: '2'
@@ -37,18 +38,18 @@ services:
     restart: unless-stopped
     networks:
       nginx_network:
-        ipv4_address: 192.168.1.33  #choose any IP of your choice
+        ipv4_address: 192.168.1.33         #choose any IP of your choice
     ports:
-     - 80:80 #open this port in your router and set it to the ip above
-     - 443:443 #open this port in your router and 
+     - 80:80          #open this port in your router and set it to the ip above
+     - 443:443        #open this port in your router and 
     environment:
-      - EMAIL=your@email.com #optional, fill in if you want cert-notifications
-      - TZ=Europe/Stockholm #set your timezone
-      - URL=example.com #your url domain.com domain.duckdns.org etc.. 
-      - SUBDOMAINS=,www,hass,unifi #add any subdomains you are going to be using
-      - VALIDATION=http #make sure port 80 is open and clear 
+      - EMAIL=your@email.com        #optional, fill in if you want cert-notifications
+      - TZ=Europe/Stockholm         #set your timezone
+      - URL=example.com             #your url domain.com domain.duckdns.org etc.. 
+      - SUBDOMAINS=,www,hass,unifi  #add any subdomains you are going to be using
+      - VALIDATION=http              #make sure port 80 is open and clear 
     volumes:
-     - /docker/letsencrypt/config:/config #you will have to create this dir or you will get an error
+     - /docker/letsencrypt/config:/config    #you will have to create this dir manually or you will get an error
     cap_add:
      - NET_ADMIN
 
@@ -62,9 +63,10 @@ networks:
       config:
         - subnet: 192.168.1.0/24            # <-- Update to the same subnet your current network has.
 ```
-> We create a new network and IP in the code above so we do not overlap any standard ports in the synology NAS or any other service that might need it. Placing your Letsencrypt container on its own IP makes it more flexible and enables you to have other services such as pihole on the same server. 
+> We create a new network and IP in the code above so we do not overlap any standard ports in the synology NAS or any other service that might need it. Placing your Letsencrypt container on its own IP makes it more flexible and enables you to have other services such as pihole on the same server without interference.
+
 ## 2. Create your container
-- Next we want to give docker the commands for what download and what settings to apply to the docker-app.
+- Next we want to give docker the commands for what to download and what settings to apply to the docker-container.
 - `cd /docker` and create a file called docker-compose.yaml. `sudo nano docker-compose.yaml` paste the content from the file from this repo into it.
 - Read all notes per setting and adjust to your own needs.
 - When you're done, issue the command `docker-compose up -d` to create the container. you will also get feedback if something went wrong in creating the container in the terminal.
@@ -86,7 +88,7 @@ server {
         root /config/www;
         index index.html index.htm index.php;
 
-        server_name www.domain.com; #enter your domain.
+        server_name test.domain.com;   #no idea what this does?! 
 
         # enable subfolder method reverse proxy confs
         include /config/nginx/proxy-confs/*.subfolder.conf;
@@ -102,7 +104,7 @@ server {
         location ~ \.php$ {
                 fastcgi_split_path_info ^(.+\.php)(/.+)$;
                 # With php7-cgi alone:
-                fastcgi_pass 192.168.1.145:80; #tbh not sure what this does yet :D
+                fastcgi_pass 192.168.1.145:80;        #tbh not sure what this does yet :D
                 # With php7-fpm:
                 #fastcgi_pass unix:/var/run/php7-fpm.sock;
                 fastcgi_index index.php;
