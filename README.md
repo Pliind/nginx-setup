@@ -19,7 +19,7 @@ A request from hass.domain.com will make the operator (nginx) have a look inside
 
 This is my first repo and I'm self taught in Linux, so please bear with me.
 
-1. Prep your NAS.
+## 1. Prep your NAS.
 - Install Docker from the Package Center
 - Enable SSH (Control Panel -> Terminal & SNMP -> Enable SSH Service.
 - Download a suitable SSH-client to your PC, Putty for example
@@ -63,7 +63,7 @@ networks:
         - subnet: 192.168.1.0/24            # <-- Update to the same subnet your current network has.
 ```
 > We create a new network and IP in the code above so we do not overlap any standard ports in the synology NAS or any other service that might need it. Placing your Letsencrypt container on its own IP makes it more flexible and enables you to have other services such as pihole on the same server. 
-2. Create your container
+## 2. Create your container
 - Next we want to give docker the commands for what download and what settings to apply to the docker-app.
 - `cd /docker` and create a file called docker-compose.yaml. `sudo nano docker-compose.yaml` paste the content from the file from this repo into it.
 - Read all notes per setting and adjust to your own needs.
@@ -116,7 +116,7 @@ proxy_cache_path cache/ keys_zone=auth_cache:10m;
 
 
 ```
-3. Setting up Nginx
+## 3. Setting up Nginx
 Now your server is up and running and all we need to do is tell nginx the where what and how.
 - navigate to /docker/letsencrypt/config/nginx/site-confs and edit the file `sudo nano default`
 - remove the contents and insert the contents of this repos default file.
