@@ -1,9 +1,9 @@
-# Guide on how to setup Nginx with Letsencrypt in Docker for intermediate.
+# Guide on how to setup Nginx with Letsencrypt in Docker for intermediate users.
 This guide is made with a Synology in mind, but will of course work on other systems / setups aswell.
 
 If you are looking for encryption of Home assistant, Unifi Cloud Key or any other service you've come to the right place.
 
-Prerequistions:
+## Prerequistions:
 - Port 80 and 443 open and pointed to the IP Nginx will have.
 - Access to your admin-account on Synology
 - A Synology NAS with an Intel-based CPU, (required for Docker)
