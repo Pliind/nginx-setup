@@ -144,14 +144,6 @@ server {
     #include /config/nginx/ldap.conf;
 
     location / {
-        # enable the next two lines for http auth
-        #auth_basic "Restricted";
-        #auth_basic_user_file /config/nginx/.htpasswd;
-
-        # enable the next two lines for ldap auth
-        #auth_request /auth;
-        #error_page 401 =200 /login;
-
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_unifi unifi-controller;
@@ -185,4 +177,4 @@ Restart Letsencryt
 
 Test your setup by opening a incognito window.
 
->Disclaimer: this guide was made for me to empty my head, because i will have forgotten half this in a week. This setup is running well for me right now, only WIP is how to set default site when going to www.domain.com
+>Disclaimer: this guide was made for me to empty my head, because i will have forgotten half this in a week.
