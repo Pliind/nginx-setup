@@ -180,8 +180,8 @@ server {
 }
 ```
 
-Restart Letsencryt from docker-container menu located in your NAS
-and you should now be set.
+Restart Letsencryt 
+`docker container restart letsencrypt`
 
 Test your setup by opening a incognito window.
 
