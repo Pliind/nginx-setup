@@ -7,7 +7,7 @@ If you are looking for encryption of Home assistant, Unifi Cloud Key or any othe
 - Port 80 and 443 open and pointed to the IP Nginx will be using (this is set in the docker-compose file).
 - Access to your admin-account on Synology
 - A Synology NAS with an Intel-based CPU, (required for Docker)
-- A domain you want to use*
+- A domain you want to use* (i've also added an extra snipp of code further down if you are happy with only using duckdns)
 - knowledge of using nano and basic directory navigation in linux
 
 > *Domain-info.
@@ -65,6 +65,17 @@ networks:
 ```
 > We create a new network and IP in the code above so we do not overlap any standard ports in the synology NAS or any other service that might need it. Placing your Letsencrypt container on its own IP makes it more flexible and enables you to have other services such as pihole on the same server without interference.
 
+If you are not interested in using your own domain, and only using a duckdns.org domain instead is enough for you, use these environment paramters instead:
+```
+environment:
+      - EMAIL=your@email.com        #optional, fill in if you want cert-notifications
+      - TZ=Europe/Stockholm         #set your timezone
+      - URL=example.com             #domain.duckdns.org  
+      - SUBDOMAINS=wildcard  #add any subdomains you are going to be using
+      - VALIDATION=duckdns             
+      - DUCKDNSTOKEN=XXXXXXX #Insert your duckdnstoken here.
+      
+```
 ## 2. Create your container
 - Next we want to give docker the commands for what to download and what settings to apply to the docker-container.
 - `cd /docker` and create a file called docker-compose.yaml. `sudo nano docker-compose.yaml` paste the content from the file from this repo into it.
