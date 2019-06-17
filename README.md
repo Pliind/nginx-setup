@@ -3,6 +3,12 @@ This guide is made with a Synology in mind, but will of course work on other sys
 
 If you are looking for encryption of Home assistant, Unifi Cloud Key or any other service you've come to the right place.
 
+## Goals:
+The point of this guide is be able to access your services outside the network and at the same time not opening an unecessary amount of ports meanwhile keeping the traffic encrypted.
+- What is Nginx?
+ Nginx is a reverse proxy, wich task is to act like an old-time telephone operator between the internet and your own network, simply speaking.
+A request from hass.domain.com will make the operator (nginx) have a look inside its catalogue and find what internal IP it should direct you to, meanwhile keeping the connection encrypted.
+
 ## Prerequisitions:
 - Port 80 and 443 open and pointed to the IP Nginx will be using (this is set in the docker-compose file).
 - Access to your admin-account on Synology
@@ -12,10 +18,6 @@ If you are looking for encryption of Home assistant, Unifi Cloud Key or any othe
 
 > *Domain-info.
 > For every subdomain you need to make a CNAME pointer to your dynamic IP (for static IP use A pointer), don't forget to point subdomain @ also, orelse letencrypt will fail when validating domain.com (even if www.domain.com works)
-
-Why Nginx? 
-Nginx will place itself as an old-time telephone operator between the internet and your own network, simply speaking.
-A request from hass.domain.com will make the operator (nginx) have a look inside its catalogue and find what internal IP it should direct you to, meanwhile keeping the connection encrypted.
 
 >This is my first repo and I'm self taught in Linux, so please bear with me if some of my methods are the "slow way" 
 
